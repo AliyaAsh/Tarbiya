@@ -1,0 +1,1321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Зимний лагерь «Тарбия» при Воткинской мечети: 6 дней зимних каникул для девочек — Коран, лекции, тюбинги, каток и новые сёстры.">
+<meta name="theme-color" content="#120E24">
+
+<!-- Превью ссылки в Telegram, VK и WhatsApp.
+     ЗАМЕНИТЕ адрес ниже на реальный, например
+     https://aliyaash.github.io/zimnyaya-tarbiya/ -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Лагерь «Тарбия», Воткинск">
+<meta property="og:title" content="Зимние каникулы с пользой — лагерь «Тарбия»">
+<meta property="og:description" content="6 дней в кругу сестёр-мусульманок: Коран, лекции, тюбинги, каток и новые подруги. Воткинская мечеть.">
+<meta property="og:url" content="https://ПОМЕНЯЙТЕ-НА-ВАШ-АДРЕС/">
+<meta property="og:image" content="https://ПОМЕНЯЙТЕ-НА-ВАШ-АДРЕС/reel-poster.jpg">
+<meta property="og:image:width" content="602">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%84%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+<style>
+  /* базовый сброс (в Claude он приходил снаружи) */
+  :root{color-scheme:dark}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+
+<title>Зимняя Тарбия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700;900&family=Onest:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap">
+
+<style>
+/* ============================================================
+   ЗИМНЯЯ ТАРБИЯ — единый визуальный мир: ночь над Воткинском,
+   северное сияние, снег, свет из окон мечети.
+   Палитра задана явно и не зависит от темы устройства.
+   ============================================================ */
+:root{
+  --night:#120E24;
+  --night-2:#191231;
+  --night-3:#221944;
+  --surface:#251C4A;
+  --surface-2:#2E2359;
+
+  --snow:#EDEDF7;
+  --snow-2:#E1E1F0;
+  --ink:#171132;
+  --ink-soft:#4C4476;
+
+  --frost:#C6CAF0;
+  --muted:#9A93C2;
+  --amber:#F6AB5D;
+  --amber-2:#E28536;
+  --mint:#5FD8C0;
+  --violet:#A87BF0;
+
+  --line:rgba(198,202,240,.15);
+  --line-2:rgba(198,202,240,.28);
+  --line-ink:rgba(23,17,50,.13);
+
+  --r-xl:34px;
+  --r-lg:24px;
+  --r-md:16px;
+  --r-sm:10px;
+
+  --f-display:'Unbounded','Onest',ui-sans-serif,system-ui,sans-serif;
+  --f-body:'Onest','Unbounded',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --f-ar:'Amiri','Times New Roman',serif;
+
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+
+/* декоративные слои (сияние, лента) не должны давать горизонтальную прокрутку */
+html{overflow-x:hidden;overflow-x:clip}
+
+body{
+  margin:0;
+  background:var(--night);
+  color:var(--frost);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;      /* запасной вариант */
+  overflow-x:clip;        /* не создаёт контейнер прокрутки и не ломает sticky */
+}
+
+.wrap{width:min(1140px,100% - 40px);margin-inline:auto}
+
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+
+.eyebrow{
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:600;color:var(--amber);
+  display:inline-flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--amber);opacity:.7;flex:none}
+
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+
+/* ---------- прогресс прокрутки ---------- */
+#prog{
+  position:fixed;top:0;left:0;height:3px;width:0%;z-index:60;
+  background:linear-gradient(90deg,var(--mint),var(--violet) 45%,var(--amber));
+  box-shadow:0 0 14px rgba(246,171,93,.5);
+}
+
+/* ---------- шапка ---------- */
+.bar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(18,14,36,.55);
+  border-bottom:1px solid transparent;
+  transition:background .35s ease,border-color .35s ease,padding .35s ease;
+  padding-block:16px;
+}
+.bar.tight{background:rgba(18,14,36,.88);border-bottom-color:var(--line);padding-block:10px}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
+.brand-txt{font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:.01em;color:#fff;line-height:1.15}
+.brand-txt small{display:block;font-family:var(--f-body);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.nav{display:flex;align-items:center;gap:26px}
+.nav a{font-size:13.5px;font-weight:500;color:var(--frost);text-decoration:none;opacity:.78;transition:opacity .2s,color .2s}
+.nav a:hover{opacity:1;color:#fff}
+.nav-cta{
+  font-family:var(--f-body);font-size:13.5px;font-weight:600;text-decoration:none;
+  padding:9px 18px;border-radius:999px;color:var(--night);
+  background:linear-gradient(135deg,var(--amber),var(--amber-2));
+  box-shadow:0 6px 20px -8px rgba(246,171,93,.9);
+  white-space:nowrap;
+}
+@media (max-width:880px){.nav{display:none}}
+
+/* ---------- ГЕРОЙ ---------- */
+.sky{position:relative;overflow:hidden;isolation:isolate;padding-bottom:96px}
+.sky::after{
+  content:"";position:absolute;inset:0;z-index:-3;
+  background:
+    radial-gradient(120% 80% at 50% -10%,#2A1F55 0%,#191231 42%,var(--night) 78%);
+}
+#snow{position:absolute;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none}
+.aurora{position:absolute;z-index:-2;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+.a1{width:52vw;height:32vw;min-height:220px;left:0;top:0;background:radial-gradient(circle,rgba(95,216,192,.55),transparent 68%);animation:drift1 22s ease-in-out infinite}
+.a2{width:48vw;height:30vw;min-height:200px;right:0;top:6vw;background:radial-gradient(circle,rgba(168,123,240,.5),transparent 68%);animation:drift2 27s ease-in-out infinite}
+.a3{width:44vw;height:24vw;min-height:170px;left:26vw;top:22vw;background:radial-gradient(circle,rgba(246,171,93,.32),transparent 70%);animation:drift1 31s ease-in-out infinite reverse}
+@keyframes drift1{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6vw,3vw,0) scale(1.14)}}
+@keyframes drift2{0%,100%{transform:translate3d(0,0,0) scale(1.05)}50%{transform:translate3d(-7vw,4vw,0) scale(.92)}}
+
+#glow{
+  position:absolute;width:520px;height:520px;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(246,171,93,.16),transparent 62%);
+  transform:translate(-50%,-50%);opacity:0;transition:opacity .5s ease;
+}
+
+.hero{padding-top:clamp(48px,7vw,92px);display:grid;grid-template-columns:1.32fr .68fr;gap:clamp(28px,4vw,60px);align-items:center}
+@media (max-width:920px){.hero{grid-template-columns:1fr;gap:34px}}
+
+.h-title{
+  font-size:clamp(40px,7.4vw,92px);line-height:1.02;font-weight:900;color:#fff;
+  margin-top:20px;letter-spacing:-.045em;
+}
+.h-title .ln{display:block}
+.h-title .warm{
+  background:linear-gradient(100deg,#F6AB5D 4%,#FFCE93 40%,#7FE3CE 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.h-title .ch{display:inline-block;white-space:pre}
+.h-sub{margin-top:24px;font-size:clamp(16px,1.9vw,19.5px);line-height:1.62;color:var(--frost);max-width:38ch;opacity:.92}
+.h-sub b{color:#fff;font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 15px;border-radius:999px;font-size:13px;font-weight:500;
+  background:rgba(198,202,240,.07);border:1px solid var(--line);color:var(--frost);
+}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none}
+.chip:nth-child(2) i{background:var(--amber)}
+.chip:nth-child(3) i{background:var(--violet)}
+
+.acts{display:flex;flex-wrap:wrap;gap:13px;margin-top:34px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:var(--f-body);font-weight:600;font-size:15px;
+  padding:15px 28px;border-radius:999px;border:1px solid transparent;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1),box-shadow .25s,background .25s,border-color .25s;
+  will-change:transform;
+}
+.btn-main{background:linear-gradient(135deg,var(--amber),var(--amber-2));color:#1A1030;box-shadow:0 14px 34px -14px rgba(246,171,93,.95)}
+.btn-main:hover{box-shadow:0 20px 44px -14px rgba(246,171,93,1)}
+.btn-ghost{border-color:var(--line-2);color:var(--frost);background:rgba(198,202,240,.05)}
+.btn-ghost:hover{border-color:var(--frost);color:#fff;background:rgba(198,202,240,.11)}
+
+/* замёрзшее окно с живой зимней сценой */
+@keyframes spin{to{transform:rotate(360deg)}}
+.scene-box{position:relative;display:grid;place-items:center;min-height:320px;padding-bottom:34px}
+.porthole{position:relative;width:min(400px,92%);aspect-ratio:1}
+.glass{
+  position:absolute;inset:8%;border-radius:50%;overflow:hidden;
+  background:#1B1338;cursor:crosshair;touch-action:pan-y;
+  box-shadow:
+    0 30px 70px -30px rgba(0,0,0,.95),
+    inset 0 0 0 1px rgba(226,230,255,.22),
+    inset 0 0 44px rgba(120,100,200,.3);
+}
+.glass canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.glass #frost{pointer-events:none}
+.hint{
+  position:absolute;left:50%;bottom:-28px;transform:translateX(-50%);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--frost);opacity:.62;white-space:nowrap;pointer-events:none;
+  transition:opacity .5s ease;
+}
+.hint.gone{opacity:0}
+.hint .touch{display:none}
+@media (hover:none){.hint .mouse{display:none}.hint .touch{display:inline}}
+.ringtxt{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:spin 52s linear infinite}
+.ringtxt text{
+  font-family:var(--f-body);font-size:8.4px;font-weight:600;
+  letter-spacing:3.1px;fill:var(--frost);opacity:.6;text-transform:uppercase;
+}
+
+/* статистика */
+.stats{display:flex;flex-wrap:wrap;gap:28px 0;margin-top:56px;border-top:1px solid var(--line);padding-top:26px}
+.stat{flex:1 1 180px;padding-right:24px}
+.stat b{display:block;font-family:var(--f-display);font-size:clamp(30px,4vw,44px);font-weight:300;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:13px;color:var(--muted);margin-top:9px;max-width:22ch}
+
+/* ---------- бегущая лента ---------- */
+.ribbon{
+  background:linear-gradient(90deg,var(--amber-2),var(--amber) 50%,var(--amber-2));
+  color:#1A1030;overflow:hidden;padding-block:14px;
+  border-block:1px solid rgba(26,16,48,.2);
+}
+.track{display:flex;width:max-content;animation:run 34s linear infinite}
+.ribbon:hover .track{animation-play-state:paused}
+.track span{
+  font-family:var(--f-display);font-weight:700;font-size:clamp(14px,1.7vw,19px);
+  letter-spacing:.02em;padding-inline:22px;display:inline-flex;align-items:center;gap:22px;white-space:nowrap;
+}
+.track span::after{content:"✦";font-size:.72em;opacity:.55}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- секции ---------- */
+section{position:relative}
+.pad{padding-block:clamp(72px,9vw,124px)}
+.head{max-width:56ch;margin-bottom:clamp(38px,5vw,60px)}
+.head h2{font-size:clamp(30px,4.6vw,54px);line-height:1.04;margin-top:18px;color:#fff}
+.head p{margin-top:18px;font-size:16.5px;color:var(--muted);line-height:1.65;max-width:50ch}
+
+/* столпы: 3 + 2, без одинокой карточки в ряду */
+.pillars{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.pil{grid-column:span 2}
+.pil:nth-child(4),.pil:nth-child(5){grid-column:span 3}
+@media (max-width:980px){
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .pil,.pil:nth-child(4){grid-column:span 1}
+  .pil:nth-child(5){grid-column:span 2}
+}
+@media (max-width:600px){
+  .pillars{grid-template-columns:1fr}
+  .pil,.pil:nth-child(4),.pil:nth-child(5){grid-column:span 1}
+}
+.pil{
+  position:relative;padding:30px 26px 34px;border-radius:var(--r-lg);
+  background:linear-gradient(168deg,var(--surface),var(--night-2));
+  border:1px solid var(--line);overflow:hidden;
+  transform-style:preserve-3d;transition:border-color .3s ease,box-shadow .3s ease;
+}
+.pil:hover{border-color:var(--line-2);box-shadow:0 26px 60px -34px rgba(0,0,0,.95)}
+.pil::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;
+  background:radial-gradient(420px 220px at var(--mx,50%) var(--my,0%),rgba(246,171,93,.16),transparent 66%);
+}
+.pil:hover::before{opacity:1}
+.pil .ic{width:44px;height:44px;margin-bottom:22px;display:block}
+.pil .ic *{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pil h3{font-size:19px;color:#fff;font-weight:600;letter-spacing:-.01em}
+.pil p{margin-top:11px;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.pil .no{
+  position:absolute;top:22px;right:24px;font-family:var(--f-display);
+  font-size:13px;font-weight:700;color:var(--line-2);font-variant-numeric:tabular-nums;
+}
+
+/* ---------- снежная полоса ---------- */
+.snowband{background:var(--snow);color:var(--ink);position:relative}
+.drift{display:block;width:100%;height:clamp(40px,6vw,84px);fill:var(--snow)}
+.drift.top{margin-bottom:-1px}
+.drift.bot{transform:rotate(180deg);margin-top:-1px}
+.driftwrap{position:relative}
+.tube{
+  position:absolute;left:0;top:0;width:clamp(42px,4.4vw,62px);
+  transform:translate(-50%,-72%);pointer-events:none;
+  filter:drop-shadow(0 6px 10px rgba(18,14,36,.45));
+}
+.tube svg{display:block;width:100%;height:auto;overflow:visible}
+.tube .ring-o{fill:#F0A055}
+.tube .ring-i{fill:#E6EAFB}
+.tube .rider{fill:#A87BF0}
+.tube .face{fill:#6FE0C8}
+.snowband .eyebrow{color:var(--amber-2)}
+.snowband .eyebrow::before{background:var(--amber-2)}
+.snowband h2{color:var(--ink)}
+.snowband .head p{color:var(--ink-soft)}
+
+/* дни */
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-items:start}
+.day{grid-column:span 2}
+.day:nth-child(4),.day:nth-child(5){grid-column:span 3}
+@media (max-width:980px){
+  .days{grid-template-columns:repeat(2,1fr)}
+  .day,.day:nth-child(4){grid-column:span 1}
+  .day:nth-child(5){grid-column:span 2}
+}
+@media (max-width:620px){
+  .days{grid-template-columns:1fr}
+  .day,.day:nth-child(4),.day:nth-child(5){grid-column:span 1}
+}
+.day{
+  position:relative;background:#fff;border:1px solid var(--line-ink);border-radius:var(--r-lg);
+  padding:28px 26px 30px;transition:transform .4s cubic-bezier(.2,.8,.3,1),box-shadow .4s ease;
+  will-change:transform;
+}
+.day:nth-child(even){margin-top:26px}
+.day:hover{box-shadow:0 30px 60px -36px rgba(23,17,50,.5);transform:translateY(-5px)}
+.dnum{
+  width:54px;height:54px;border-radius:16px;display:grid;place-items:center;margin-bottom:20px;
+  background:rgba(226,133,54,.12);
+}
+.dnum svg{width:29px;height:29px}
+.dnum svg *{fill:none;stroke:var(--amber-2);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* чаепитие */
+.teaband{
+  margin-top:clamp(40px,5vw,64px);display:flex;flex-wrap:wrap;align-items:center;
+  gap:clamp(18px,3vw,38px);padding:26px 30px;border-radius:var(--r-lg);
+  background:#fff;border:1px solid var(--line-ink);
+}
+.teaband p{font-size:15px;color:var(--ink-soft);line-height:1.62;max-width:54ch;flex:1 1 280px;margin:0}
+.teaband b{color:var(--ink);font-weight:600}
+.cups{display:flex;gap:4px;flex:none}
+.cup{width:56px;height:60px;overflow:visible}
+.cup .body,.cup .saucer{fill:none;stroke:var(--amber-2);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.cup .saucer{opacity:.45}
+.cup .steam path{
+  fill:none;stroke:var(--amber-2);stroke-width:2;stroke-linecap:round;opacity:0;
+  transform-box:fill-box;transform-origin:50% 100%;
+  animation:steam 3.4s ease-in-out infinite;
+}
+.cup .steam path:nth-child(2){animation-delay:.6s}
+.cup .steam path:nth-child(3){animation-delay:1.2s}
+.cup:nth-child(2){margin-top:8px}
+.cup:nth-child(2) .steam path{animation-duration:4.1s}
+.cup:nth-child(3) .steam path{animation-duration:2.9s}
+@keyframes steam{
+  0%{opacity:0;transform:translateY(7px) scaleY(.65)}
+  35%{opacity:.75}
+  100%{opacity:0;transform:translateY(-11px) scaleY(1.2)}
+}
+.day h3{font-size:19.5px;color:var(--ink);font-weight:600}
+.day ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.day li{position:relative;padding-left:20px;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+.day li::before{
+  content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;
+  background:var(--amber-2);box-shadow:0 0 0 3.5px rgba(226,133,54,.15);
+}
+@media (max-width:620px){.day:nth-child(even){margin-top:0}}
+.note{margin-top:30px;font-size:13.5px;color:var(--ink-soft);opacity:.85;max-width:60ch}
+
+/* ритм дня */
+.rhythm{margin-top:clamp(60px,7vw,92px);border-top:1px solid var(--line-ink);padding-top:44px}
+.rhythm h3{font-size:clamp(21px,2.6vw,27px);color:var(--ink);margin-bottom:8px}
+.rhythm>p{font-size:14.5px;color:var(--ink-soft);margin-bottom:34px;max-width:52ch}
+.rline{display:grid;grid-template-columns:repeat(auto-fit,minmax(154px,1fr));gap:0}
+.rstep{position:relative;padding:26px 16px 0 0}
+.rstep::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--line-ink)}
+.rstep::after{
+  content:"";position:absolute;top:-5px;left:0;width:12px;height:12px;border-radius:50%;
+  background:var(--snow);border:2px solid var(--amber-2);
+}
+.rstep b{display:block;font-family:var(--f-display);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-2)}
+.rstep span{display:block;margin-top:7px;font-size:14.5px;color:var(--ink-soft);line-height:1.5}
+
+/* ---------- видео ---------- */
+.reelwrap{display:grid;grid-template-columns:minmax(0,392px) minmax(0,1fr);gap:clamp(26px,4.5vw,58px);align-items:center}
+@media (max-width:880px){.reelwrap{grid-template-columns:1fr;gap:34px;justify-items:center}}
+.phonebox{position:relative;width:100%;max-width:392px;isolation:isolate}
+.phonebox::before{
+  content:"";position:absolute;inset:-12% -16%;z-index:-1;border-radius:50%;
+  background:radial-gradient(circle,rgba(246,171,93,.3),rgba(168,123,240,.18) 46%,transparent 70%);
+  filter:blur(56px);animation:breathe 9s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.65;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.phone{
+  position:relative;border-radius:30px;overflow:hidden;background:#0B0817;
+  border:1px solid var(--line-2);aspect-ratio:1070/1920;max-width:100%;
+  box-shadow:0 52px 100px -52px rgba(0,0,0,1),inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone .tag{
+  position:absolute;top:16px;left:16px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  padding:7px 13px;border-radius:999px;background:rgba(11,8,23,.62);border:1px solid var(--line-2);color:var(--frost);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;gap:8px;
+}
+.phone .tag i{width:6px;height:6px;border-radius:50%;background:#FF5A6E;flex:none;animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.snd{
+  position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;color:#fff;
+  background:rgba(11,8,23,.6);border:1px solid var(--line-2);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:background .25s,transform .25s,border-color .25s;
+}
+.snd:hover{background:rgba(246,171,93,.9);color:#1A1030;border-color:transparent;transform:scale(1.07)}
+.bigplay{
+  position:absolute;inset:0;border:0;cursor:pointer;background:rgba(11,8,23,.34);
+  display:grid;place-items:center;transition:opacity .4s ease;
+}
+.bigplay[hidden]{display:none!important}
+.bigplay span{
+  width:74px;height:74px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--amber),var(--amber-2));color:#1A1030;
+  box-shadow:0 0 0 0 rgba(246,171,93,.5);animation:pulse 2.8s ease-out infinite;
+}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(246,171,93,.48)}70%{box-shadow:0 0 0 26px rgba(246,171,93,0)}100%{box-shadow:0 0 0 0 rgba(246,171,93,0)}}
+.vtext h3{font-size:clamp(22px,3vw,32px);color:#fff;margin-bottom:14px}
+.vtext>p{font-size:16px;color:var(--muted);line-height:1.65;max-width:44ch;margin-bottom:26px}
+.clips{display:flex;flex-direction:column;gap:11px;max-width:460px}
+.clip{
+  display:flex;align-items:center;gap:14px;text-decoration:none;padding:16px 18px;
+  border:1px solid var(--line);border-radius:var(--r-md);background:rgba(198,202,240,.04);
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.clip:hover{background:rgba(198,202,240,.09);border-color:var(--line-2);transform:translateX(5px)}
+.clip .t{width:34px;height:34px;flex:none;border-radius:9px;display:grid;place-items:center;background:rgba(246,171,93,.14);color:var(--amber)}
+.clip b{display:block;font-size:14px;font-weight:600;color:#fff}
+.clip span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- хадис ---------- */
+.ayah{text-align:center;padding-block:clamp(66px,8vw,104px);position:relative;overflow:hidden}
+.ayah::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(70% 120% at 50% 50%,rgba(168,123,240,.16),transparent 62%);
+}
+.ar{font-family:var(--f-ar);font-size:clamp(28px,5vw,50px);line-height:1.85;color:#fff;direction:rtl;font-weight:400}
+.tr{margin-top:22px;font-size:clamp(16px,2.1vw,20px);color:var(--frost);max-width:30ch;margin-inline:auto;line-height:1.55}
+.src{margin-top:16px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.flakes{display:flex;justify-content:center;gap:14px;margin-bottom:30px}
+.flakes svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.4;opacity:.6;animation:spin 18s linear infinite}
+.flakes svg:nth-child(2){width:30px;height:30px;stroke:var(--mint);animation-duration:26s;animation-direction:reverse;opacity:.75}
+.flakes svg:nth-child(3){animation-duration:22s}
+
+/* ---------- запись ---------- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.doors{grid-template-columns:1fr}}
+.door{
+  position:relative;display:block;text-decoration:none;overflow:hidden;
+  padding:36px 32px 34px;border-radius:var(--r-xl);
+  border:1px solid var(--line-2);background:linear-gradient(165deg,var(--surface-2),var(--night-2) 72%);
+  transition:transform .45s cubic-bezier(.2,.8,.3,1),border-color .35s,box-shadow .45s;
+}
+.door:hover{transform:translateY(-6px);border-color:var(--amber);box-shadow:0 40px 80px -44px rgba(246,171,93,.75)}
+.door::after{
+  content:"";position:absolute;width:300px;height:300px;right:-110px;top:-130px;border-radius:50%;
+  background:radial-gradient(circle,rgba(246,171,93,.22),transparent 68%);transition:transform .6s ease;
+}
+.door:hover::after{transform:scale(1.5)}
+.door.f::after{background:radial-gradient(circle,rgba(95,216,192,.22),transparent 68%)}
+.door small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.door h3{margin-top:14px;font-size:clamp(23px,3vw,30px);color:#fff}
+.door .tg{
+  display:flex;width:fit-content;align-items:center;gap:11px;margin-top:22px;
+  font-family:var(--f-display);font-size:clamp(16px,2.2vw,21px);font-weight:600;color:var(--amber);
+  word-break:break-all;
+}
+.door.f .tg{color:var(--mint)}
+.door .go{
+  margin-top:24px;display:flex;width:fit-content;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#fff;opacity:.85;
+}
+.door .go svg{transition:transform .3s ease}
+.door:hover .go svg{transform:translateX(6px)}
+
+.channel{
+  margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 28px;border:1px dashed var(--line-2);border-radius:var(--r-lg);
+}
+.channel p{font-size:14.5px;color:var(--muted);max-width:46ch}
+.channel b{color:#fff;font-weight:600}
+
+/* ---------- подвал ---------- */
+footer{border-top:1px solid var(--line);padding-block:40px 52px;margin-top:20px}
+.foot{display:flex;flex-wrap:wrap;gap:22px;justify-content:space-between;align-items:center}
+.foot p{font-size:13px;color:var(--muted);line-height:1.6}
+.foot .links{display:flex;gap:20px;flex-wrap:wrap}
+.foot .links a{font-size:13px;color:var(--frost);text-decoration:none;opacity:.8}
+.foot .links a:hover{opacity:1;color:var(--amber)}
+
+/* ---------- появление ---------- */
+/* .in НЕ задаёт transform — иначе он перебивает hover и смещения карточек */
+.rev{transition:opacity .85s cubic-bezier(.2,.8,.3,1),transform .85s cubic-bezier(.2,.8,.3,1)}
+html.js .rev:not(.in){opacity:.42;transform:translateY(26px)}
+html.js .rev.in{opacity:1}
+html.js .rev.d1{transition-delay:.08s}
+html.js .rev.d2{transition-delay:.16s}
+html.js .rev.d3{transition-delay:.24s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html.js .rev:not(.in){opacity:1;transform:none}
+  .star .lim{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<header class="bar" id="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#top">
+      <span class="brand-txt">Тарбия<small>Воткинск</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#chto">Что будет</a>
+      <a href="#dni">Родителям</a>
+      <a href="#video">Видео</a>
+      <a href="#zapis">Запись</a>
+    </nav>
+    <a class="nav-cta" href="#zapis">Записать ребёнка</a>
+  </div>
+</header>
+
+<!-- ================= ГЕРОЙ ================= -->
+<section class="sky" id="top">
+  <canvas id="snow"></canvas>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div id="glow"></div>
+
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Зимний лагерь для девочек · Воткинская мечеть</span>
+      <h1 class="h-title">
+        <span class="ln" data-split>Зимние</span>
+        <span class="ln warm" data-split>каникулы</span>
+        <span class="ln" data-split>с пользой</span>
+      </h1>
+      <p class="h-sub">Шесть дней, когда каникулы не растворяются в телефоне: <b>Коран, лекции, весёлые игры</b> — и новые сёстры, с которыми потом переписываешься весь год.</p>
+
+      <div class="chips">
+        <span class="chip"><i></i>6 дней</span>
+        <span class="chip"><i></i>Мечеть г. Воткинска</span>
+        <span class="chip"><i></i>Для девочек</span>
+      </div>
+
+      <div class="acts">
+        <a class="btn btn-main" href="#zapis" data-magnet>Записаться на смену
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#video" data-magnet>Посмотреть видео</a>
+      </div>
+    </div>
+
+    <div class="scene-box">
+      <div class="porthole">
+        <div class="glass" id="glass">
+          <canvas id="scene"></canvas>
+          <canvas id="frost"></canvas>
+        </div>
+        <svg class="ringtxt" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <path id="ringpath" fill="none" d="M100,100 m-91,0 a91,91 0 1,1 182,0 a91,91 0 1,1 -182,0"></path>
+          </defs>
+          <text><textPath href="#ringpath" startOffset="0" textLength="568" lengthAdjust="spacing">6 дней · зимние каникулы · Тарбия · Воткинск ·</textPath></text>
+        </svg>
+        <span class="hint" id="hint">
+          <span class="mouse">Проведи мышкой по стеклу</span>
+          <span class="touch">Протри стекло пальцем</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap stats">
+    <div class="stat"><b>6</b><span>дней в кругу сестёр-мусульманок</span></div>
+    <div class="stat"><b>5</b><span>намазов в день — вместе, джамаатом</span></div>
+    <div class="stat"><b>4</b><span>направления: Коран, кружки, отдых, дружба</span></div>
+    <div class="stat"><b>∞</b><span>новых сестёр и тёплых воспоминаний</span></div>
+  </div>
+</section>
+
+<!-- ================= ЛЕНТА ================= -->
+<div class="ribbon" aria-hidden="true">
+  <div class="track" id="track">
+    <span>Коран</span><span>Тюбинги</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
+    <span>Коран</span><span>Тюбинги</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
+  </div>
+</div>
+
+<!-- ================= ЧТО БУДЕТ ================= -->
+<section class="pad" id="chto">
+  <div class="wrap">
+    <div class="head rev">
+      <span class="eyebrow">Пять вещей, ради которых стоит приехать</span>
+      <h2>Что будет на смене</h2>
+      <p>Мы не растягиваем шесть дней на скучные уроки. Утро — для знаний, день — для движения, вечер — для того, чтобы никто не хотел уезжать.</p>
+    </div>
+
+    <div class="pillars">
+      <article class="pil rev" data-tilt>
+        <span class="no">01</span>
+        <svg class="ic" viewBox="0 0 48 48" stroke="#F6AB5D" aria-hidden="true"><path d="M24 14v26"/><path d="M24 14c-4-4-10-5-16-4v26c6-1 12 0 16 4 4-4 10-5 16-4V10c-6-1-12 0-16 4Z"/><path d="M14 20h4M14 27h4M30 20h4M30 27h4"/></svg>
+        <h3>Коран</h3>
+        <p>Чтение, таджвид и заучивание коротких сур — маленькими шагами, каждая в своём темпе и на своём уровне.</p>
+      </article>
+
+      <article class="pil rev d1" data-tilt>
+        <span class="no">02</span>
+        <svg class="ic" viewBox="0 0 48 48" stroke="#5FD8C0" aria-hidden="true"><path d="M10 38h28"/><path d="M14 38V22l10-8 10 8v16"/><path d="M24 38v-9"/><circle cx="24" cy="9" r="3"/></svg>
+        <h3>Лекции</h3>
+        <p>Разговор о вере, о нраве и о том, как остаться собой в школе и в интернете. Живо, с вопросами и примерами из жизни.</p>
+      </article>
+
+      <article class="pil rev d2" data-tilt>
+        <span class="no">03</span>
+        <svg class="ic" viewBox="0 0 48 48" stroke="#A87BF0" aria-hidden="true"><circle cx="24" cy="24" r="13"/><path d="M24 11v26M11 24h26M15 15l18 18M33 15 15 33"/></svg>
+        <h3>Весёлые игры</h3>
+        <p>Тюбинги с горы, каток, квесты, снежные крепости и командные состязания — чтобы шесть дней пролетели за один вдох.</p>
+      </article>
+
+      <article class="pil rev" data-tilt>
+        <span class="no">04</span>
+        <svg class="ic" viewBox="0 0 48 48" stroke="#F6AB5D" aria-hidden="true"><circle cx="24" cy="24" r="4"/><circle cx="24" cy="10" r="3.2"/><circle cx="24" cy="38" r="3.2"/><circle cx="10" cy="24" r="3.2"/><circle cx="38" cy="24" r="3.2"/><path d="M24 14v6M24 28v6M14 24h6M28 24h6"/></svg>
+        <h3>Кружки своими руками</h3>
+        <p>Бисер, роспись, открытки к приезду домой. Домой девочки увозят не только знания, но и то, что сделали сами.</p>
+      </article>
+
+      <article class="pil rev d1" data-tilt>
+        <span class="no">05</span>
+        <svg class="ic" viewBox="0 0 48 48" stroke="#5FD8C0" aria-hidden="true"><circle cx="17" cy="16" r="6"/><circle cx="31" cy="16" r="6"/><path d="M7 38c0-6 4.5-10 10-10s10 4 10 10"/><path d="M21 38c0-6 4.5-10 10-10s10 4 10 10"/></svg>
+        <h3>Дружба и новые сёстры</h3>
+        <p>Одна большая семья на неделю: общий намаз, общий стол, общие дежурства. Девочки находят подруг в безопасном кругу.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= РОДИТЕЛЯМ ================= -->
+<div class="driftwrap" id="driftwrap">
+  <svg class="drift top" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path id="driftPath" d="M0,90 L0,50 C120,20 240,68 360,54 C480,40 560,8 700,16 C840,24 900,64 1040,60 C1180,56 1300,26 1440,42 L1440,90 Z"/></svg>
+  <div class="tube" id="tube" aria-hidden="true">
+    <svg viewBox="0 0 64 50">
+      <path class="rider" d="M32 30c-7 0-8-6-8-10 0-5 3-9 8-9s8 4 8 9c0 4-1 10-8 10z"/>
+      <circle class="face" cx="32" cy="17" r="4.4"/>
+      <ellipse class="ring-o" cx="32" cy="34" rx="25" ry="12"/>
+      <ellipse class="ring-i" cx="32" cy="33" rx="9.5" ry="4.4"/>
+    </svg>
+  </div>
+</div>
+
+<section class="snowband" id="dni">
+  <div class="wrap" style="padding-block:clamp(20px,3vw,40px) clamp(64px,8vw,104px)">
+    <div class="head rev">
+      <span class="eyebrow">Родителям</span>
+      <h2>Как собрать ребёнка на смену</h2>
+      <p>Девочки живут при мечети, поэтому сумку собираем как в поездку: тепло на улицу, уютно внутри. Полный список пришлём в Telegram после записи.</p>
+    </div>
+
+    <div class="days">
+      <article class="day rev">
+        <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 39V17"/><path d="M7 26h25a8 8 0 0 1 8 8v5H7z"/><circle cx="17" cy="21" r="4.5"/></svg></div>
+        <h3>Спальное</h3>
+        <ul><li>Матрас и постельные принадлежности</li><li>Подушка и плед потеплее</li><li>Пижама и тапочки</li></ul>
+      </article>
+
+      <article class="day rev d1">
+        <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c6 0 11 3 11 3l-3 9-3-1v19H19V19l-3 1-3-9s5-3 11-3z"/></svg></div>
+        <h3>На улицу</h3>
+        <ul><li>Тёплый комбинезон для тюбингов</li><li>Две пары варежек — одни всегда мокрые</li><li>Шапка, шарф, тёплые сапоги</li></ul>
+      </article>
+
+      <article class="day rev d2">
+        <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 14v26"/><path d="M24 14c-4-4-10-5-16-4v26c6-1 12 0 16 4 4-4 10-5 16-4V10c-6-1-12 0-16 4z"/></svg></div>
+        <h3>Для занятий</h3>
+        <ul><li>Коран и тетрадь</li><li>Ручки, карандаши, папка</li></ul>
+      </article>
+
+      <article class="day rev">
+        <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 18h22v14a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6z"/><path d="M34 21h3a4 4 0 0 1 0 8h-3"/><path d="M19 12c0-2 2-2 2-4M27 12c0-2 2-2 2-4"/></svg></div>
+        <h3>Личное</h3>
+        <ul><li>Полотенце и средства гигиены</li><li>Сменная домашняя одежда</li></ul>
+      </article>
+
+      <article class="day rev d1">
+        <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40s-13-8-13-17a7.5 7.5 0 0 1 13-5 7.5 7.5 0 0 1 13 5c0 9-13 17-13 17z"/></svg></div>
+        <h3>Для души</h3>
+        <ul><li>Настолки, которыми не жалко поделиться</li><li>Хорошее настроение — обязательно</li></ul>
+      </article>
+    </div>
+
+    <p class="note">Список ориентировочный: точный состав и даты заезда координатор пришлёт в Telegram, когда подтвердит место.</p>
+
+    <div class="teaband rev">
+      <div class="cups" aria-hidden="true">
+        <svg class="cup" viewBox="0 0 60 64"><g class="steam"><path d="M22 20c0-5 5-5 5-10s-5-5-5-10"/><path d="M30 18c0-5 5-5 5-10s-5-5-5-10"/><path d="M38 20c0-5 5-5 5-10s-5-5-5-10"/></g><path class="body" d="M12 26h30v16a10 10 0 0 1-10 10H22a10 10 0 0 1-10-10z"/><path class="body" d="M42 30h4a5 5 0 0 1 0 10h-4"/><path class="saucer" d="M8 56h38"/></svg>
+        <svg class="cup" viewBox="0 0 60 64"><g class="steam"><path d="M22 20c0-5 5-5 5-10s-5-5-5-10"/><path d="M30 18c0-5 5-5 5-10s-5-5-5-10"/><path d="M38 20c0-5 5-5 5-10s-5-5-5-10"/></g><path class="body" d="M12 26h30v16a10 10 0 0 1-10 10H22a10 10 0 0 1-10-10z"/><path class="body" d="M42 30h4a5 5 0 0 1 0 10h-4"/><path class="saucer" d="M8 56h38"/></svg>
+        <svg class="cup" viewBox="0 0 60 64"><g class="steam"><path d="M22 20c0-5 5-5 5-10s-5-5-5-10"/><path d="M30 18c0-5 5-5 5-10s-5-5-5-10"/><path d="M38 20c0-5 5-5 5-10s-5-5-5-10"/></g><path class="body" d="M12 26h30v16a10 10 0 0 1-10 10H22a10 10 0 0 1-10-10z"/><path class="body" d="M42 30h4a5 5 0 0 1 0 10h-4"/><path class="saucer" d="M8 56h38"/></svg>
+      </div>
+      <p><b>И обязательно — горячий чай после улицы.</b> Замёрзшие руки, запотевшие окна и душевные разговоры.</p>
+    </div>
+
+    <div class="rhythm rev">
+      <h3>Один день на смене</h3>
+      <p>Расписание держится не на часах, а на намазах — так дети привыкают к ритму сами, без напоминаний.</p>
+      <div class="rline">
+        <div class="rstep"><b>Фаджр</b><span>Подъём, намаз джамаатом, утренний зикр</span></div>
+        <div class="rstep"><b>До Зухра</b><span>Завтрак и занятия по Корану</span></div>
+        <div class="rstep"><b>После Зухра</b><span>Обед и лекция дня</span></div>
+        <div class="rstep"><b>После Асра</b><span>Игры, прогулка, спорт</span></div>
+        <div class="rstep"><b>Магриб</b><span>Ужин и свободное время</span></div>
+        <div class="rstep"><b>После Иша</b><span>Вечерний круг и отбой</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="drift bot" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,90 L0,50 C120,20 240,68 360,54 C480,40 560,8 700,16 C840,24 900,64 1040,60 C1180,56 1300,26 1440,42 L1440,90 Z"/></svg>
+
+<!-- ================= ВИДЕО ================= -->
+<section class="pad" id="video">
+  <div class="wrap">
+    <div class="head rev">
+      <span class="eyebrow">Как это было</span>
+      <h2>Посмотрите, что происходит на сменах</h2>
+      <p>Одна минута — и становится понятно, как проходит смена.</p>
+    </div>
+
+    <div class="reelwrap">
+      <div class="phonebox rev">
+        <div class="phone">
+          <video id="reel" src="tarbiya-reel.mp4" poster="reel-poster.jpg" muted loop playsinline preload="none" aria-label="Видео о зимнем лагере «Тарбия»"></video>
+          <span class="tag"><i></i>Зимняя смена</span>
+          <button class="snd" id="snd" type="button" aria-label="Включить звук">
+            <svg id="sndIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+          </button>
+          <button class="bigplay" id="bigplay" type="button" aria-label="Смотреть видео">
+            <span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="vtext rev d1">
+        <h3>Полезный отдых, новые знания, тёплые друзья</h3>
+        <p>Занятия по Корану, кружки своими руками, снег за окнами мечети и горячий чай после улицы.</p>
+
+        <div class="clips">
+          <a class="clip" href="https://t.me/lager_tarbiya/79" target="_blank" rel="noopener">
+            <span class="t"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
+            <span><b>Итоги смены девочек</b><span>Большое видео на 5:51</span></span>
+          </a>
+          <a class="clip" href="https://t.me/lager_tarbiya/76" target="_blank" rel="noopener">
+            <span class="t"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
+            <span><b>Как живут на смене</b><span>Один день юных сестричек</span></span>
+          </a>
+          <a class="clip" href="https://t.me/lager_tarbiya" target="_blank" rel="noopener">
+            <span class="t"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+            <span><b>Весь архив смен</b><span>Фото и видео в канале лагеря</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ХАДИС ================= -->
+<section class="ayah">
+  <div class="wrap">
+    <div class="flakes rev" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1M12 6l-2.5-2.5M12 6l2.5-2.5M12 18l-2.5 2.5M12 18l2.5 2.5"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+    </div>
+    <p class="ar rev d1">طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ</p>
+    <p class="tr rev d2">«Стремление к знанию — обязанность каждого мусульманина»</p>
+    <p class="src rev d3">Ибн Маджа</p>
+  </div>
+</section>
+
+<!-- ================= ЗАПИСЬ ================= -->
+<section class="pad" id="zapis" style="padding-top:0">
+  <div class="wrap">
+    <div class="head rev">
+      <span class="eyebrow">Запись на зимнюю смену</span>
+      <h2>Места ограничены — напишите заранее</h2>
+      <p>Напишите в Telegram: подскажут даты заезда, стоимость, что взять с собой и как устроено проживание. Мужчины пишут хазрату, женщины — умм Самире.</p>
+    </div>
+
+    <div class="doors">
+      <a class="door rev" href="https://t.me/Muhammednurash" target="_blank" rel="noopener">
+        <small>Для мужчин</small>
+        <h3>Мыхамматнур хазрат</h3>
+        <span class="tg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
+          @Muhammednurash
+        </span>
+        <span class="go">Написать в Telegram
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a class="door f rev d1" href="https://t.me/ummsamira_tarbiya" target="_blank" rel="noopener">
+        <small>Для женщин</small>
+        <h3>Умм Самира</h3>
+        <span class="tg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
+          @ummsamira_tarbiya
+        </span>
+        <span class="go">Написать в Telegram
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="channel rev d2">
+      <p><b>Ещё не решили?</b> Подпишитесь на канал лагеря — там фото и видео с каждой смены, объявления о наборе и даты заездов.</p>
+      <a class="btn btn-ghost" href="https://t.me/lager_tarbiya" target="_blank" rel="noopener" data-magnet>Канал @lager_tarbiya</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <p>Медресе и лагерь «Тарбия»<br>г. Воткинск, Удмуртская Республика</p>
+    <div class="links">
+      <a href="https://t.me/lager_tarbiya" target="_blank" rel="noopener">Канал лагеря</a>
+      <a href="https://t.me/Muhammednurash" target="_blank" rel="noopener">@Muhammednurash</a>
+      <a href="https://t.me/ummsamira_tarbiya" target="_blank" rel="noopener">@ummsamira_tarbiya</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  root.classList.add('js');
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 1. разбивка заголовка по буквам ---------- */
+  var idx=0;
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var text=el.textContent, frag=document.createDocumentFragment();
+    for(var i=0;i<text.length;i++){
+      var s=document.createElement('span');
+      s.className='ch';
+      s.textContent=text[i];
+      if(!calm){
+        s.style.opacity='0';
+        s.style.transform='translateY(0.45em) rotate(3deg)';
+        s.style.transition='opacity .5s ease '+(idx*26)+'ms, transform .62s cubic-bezier(.2,.9,.3,1) '+(idx*26)+'ms';
+      }
+      frag.appendChild(s); idx++;
+    }
+    el.textContent=''; el.appendChild(frag);
+  });
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.ch').forEach(function(s){ s.style.opacity='1'; s.style.transform='none'; });
+  });
+
+  /* ---------- 2. снегопад на canvas ---------- */
+  var cv=document.getElementById('snow'), cx=cv.getContext('2d');
+  var W=0,H=0,flakes=[],wind=0,tw=0,tiltWind=0,mouse={x:-999,y:-999};
+  function size(){
+    var r=cv.parentElement.getBoundingClientRect();
+    W=r.width; H=r.height;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+    build();
+  }
+  function build(){
+    flakes=[];
+    var n=Math.round(Math.min(190,Math.max(60,W/7)));
+    for(var i=0;i<n;i++){
+      var d=Math.random();
+      flakes.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:.7+d*2.6, v:.18+d*.75, s:Math.random()*Math.PI*2,
+        a:.18+d*.62, w:.3+d*1.1
+      });
+    }
+  }
+  function paint(t){
+    cx.clearRect(0,0,W,H);
+    tw+=.004; wind=Math.sin(tw)*.7+Math.sin(tw*2.3)*.3+tiltWind;
+    for(var i=0;i<flakes.length;i++){
+      var f=flakes[i];
+      f.s+=.012;
+      f.y+=f.v; f.x+=wind*f.w+Math.sin(f.s)*.35;
+      var dx=f.x-mouse.x, dy=f.y-mouse.y, d2=dx*dx+dy*dy;
+      if(d2<12000){ var k=(12000-d2)/12000*2.4, m=Math.sqrt(d2)||1; f.x+=dx/m*k; f.y+=dy/m*k; }
+      if(f.y>H+6){ f.y=-6; f.x=Math.random()*W; }
+      if(f.x<-14) f.x=W+14; else if(f.x>W+14) f.x=-14;
+      cx.beginPath();
+      cx.arc(f.x,f.y,f.r,0,6.283);
+      cx.fillStyle='rgba(226,230,255,'+f.a+')';
+      cx.fill();
+    }
+    raf=requestAnimationFrame(paint);
+  }
+  var raf=null;
+  size();
+  window.addEventListener('resize',function(){ size(); if(calm) still(); });
+  function still(){
+    cx.clearRect(0,0,W,H);
+    flakes.forEach(function(f){
+      cx.beginPath(); cx.arc(f.x,f.y,f.r,0,6.283);
+      cx.fillStyle='rgba(226,230,255,'+f.a+')'; cx.fill();
+    });
+  }
+  if(calm){ still(); } else { raf=requestAnimationFrame(paint); }
+
+  /* ---------- 3. свет за курсором в герое ---------- */
+  var sky=document.querySelector('.sky'), glow=document.getElementById('glow');
+  if(window.matchMedia('(pointer:fine)').matches){
+    sky.addEventListener('pointermove',function(e){
+      var r=sky.getBoundingClientRect();
+      mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top;
+      glow.style.left=mouse.x+'px'; glow.style.top=mouse.y+'px'; glow.style.opacity='1';
+    });
+    sky.addEventListener('pointerleave',function(){
+      mouse.x=-999; mouse.y=-999; glow.style.opacity='0';
+    });
+  }
+
+  /* ---------- 4. зимняя сцена за замёрзшим стеклом ---------- */
+  var glass=document.getElementById('glass'),
+      sc=document.getElementById('scene'), sx=sc.getContext('2d'),
+      fr=document.getElementById('frost'), fx=fr.getContext('2d'),
+      hint=document.getElementById('hint');
+  var S=0, stars=[], sflk=[], trail=[], tubeT=-.06, tubeWait=0, skTh=0, tick2=0;
+
+  function slope(t){
+    var p0x=-.08*S,p0y=.30*S,p1x=.42*S,p1y=.66*S,p2x=1.08*S,p2y=.70*S,mt=1-t;
+    return {
+      x:mt*mt*p0x+2*mt*t*p1x+t*t*p2x,
+      y:mt*mt*p0y+2*mt*t*p1y+t*t*p2y,
+      dx:2*mt*(p1x-p0x)+2*t*(p2x-p1x),
+      dy:2*mt*(p1y-p0y)+2*t*(p2y-p1y)
+    };
+  }
+
+  function sceneSize(){
+    var r=glass.getBoundingClientRect();
+    S=r.width||320;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    [sc,fr].forEach(function(c){ c.width=S*dpr; c.height=S*dpr; });
+    sx.setTransform(dpr,0,0,dpr,0,0); fx.setTransform(dpr,0,0,dpr,0,0);
+    stars=[]; for(var i=0;i<26;i++) stars.push({x:Math.random()*S,y:Math.random()*S*.42,r:Math.random()*1.1+.4,p:Math.random()*6.283});
+    sflk=[]; for(var j=0;j<70;j++){ var d=Math.random(); sflk.push({x:Math.random()*S,y:Math.random()*S,r:.6+d*2,v:.16+d*.6,a:.25+d*.5,s:Math.random()*6.283}); }
+    trail=[];
+    resetFrost();
+  }
+
+  function frostFill(a){
+    /* к центру стекло почти чистое — сцену видно всегда, иней живёт по краям */
+    var g=fx.createRadialGradient(S*.5,S*.46,S*.06,S*.5,S*.5,S*.58);
+    g.addColorStop(0,'rgba(238,242,255,'+(.06*a)+')');
+    g.addColorStop(.42,'rgba(228,234,255,'+(.34*a)+')');
+    g.addColorStop(.75,'rgba(214,223,252,'+(.72*a)+')');
+    g.addColorStop(1,'rgba(198,210,247,'+(.94*a)+')');
+    fx.globalCompositeOperation='source-over';
+    fx.fillStyle=g; fx.fillRect(0,0,S,S);
+  }
+  function wipe(x,y,rad){
+    fx.globalCompositeOperation='destination-out';
+    var g=fx.createRadialGradient(x,y,0,x,y,rad);
+    g.addColorStop(0,'rgba(0,0,0,.55)'); g.addColorStop(.6,'rgba(0,0,0,.28)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    fx.fillStyle=g; fx.beginPath(); fx.arc(x,y,rad,0,6.283); fx.fill();
+    fx.globalCompositeOperation='source-over';
+  }
+  function resetFrost(){
+    fx.clearRect(0,0,S,S);
+    frostFill(1);
+    /* кристаллы на стекле */
+    fx.globalCompositeOperation='source-over';
+    for(var i=0;i<150;i++){
+      var a=Math.random()*6.283, d=(.42+Math.sqrt(Math.random())*.58)*S*.5;
+      fx.beginPath();
+      fx.arc(S*.5+Math.cos(a)*d,S*.5+Math.sin(a)*d,Math.random()*1.8+.3,0,6.283);
+      fx.fillStyle='rgba(255,255,255,'+(Math.random()*.45+.14)+')'; fx.fill();
+    }
+    /* центр протёрт заранее: сцена читается сразу, без взаимодействия */
+    wipe(S*.5,S*.5,S*.36);
+    for(var k=0;k<7;k++){
+      var ang=k/7*6.283;
+      wipe(S*.5+Math.cos(ang)*S*.18, S*.52+Math.sin(ang)*S*.17, S*.2);
+    }
+  }
+
+  function drawScene(){
+    tick2++;
+    /* небо */
+    var g=sx.createLinearGradient(0,0,0,S);
+    g.addColorStop(0,'#31235F'); g.addColorStop(.46,'#1F1642'); g.addColorStop(1,'#17112E');
+    sx.fillStyle=g; sx.fillRect(0,0,S,S);
+
+    /* звёзды */
+    stars.forEach(function(st){
+      sx.beginPath(); sx.arc(st.x,st.y,st.r,0,6.283);
+      sx.fillStyle='rgba(226,230,255,'+(.35+Math.sin(tick2*.02+st.p)*.3)+')'; sx.fill();
+    });
+
+    /* луна */
+    sx.beginPath(); sx.arc(S*.74,S*.19,S*.11,0,6.283);
+    sx.fillStyle='rgba(246,171,93,.1)'; sx.fill();
+    sx.beginPath(); sx.arc(S*.74,S*.19,S*.045,0,6.283);
+    sx.fillStyle='#FBD9A8'; sx.fill();
+
+    /* дальний гребень */
+    sx.beginPath();
+    sx.moveTo(-S*.1,S*.46);
+    sx.quadraticCurveTo(S*.3,S*.3,S*.62,S*.42);
+    sx.quadraticCurveTo(S*.85,S*.5,S*1.1,S*.4);
+    sx.lineTo(S*1.1,S*1.1); sx.lineTo(-S*.1,S*1.1); sx.closePath();
+    sx.fillStyle='#3A2C69'; sx.fill();
+
+    /* ёлки на гребне */
+    sx.fillStyle='#241A46';
+    [[.10,.44],[.17,.41],[.26,.365],[.34,.35],[.52,.40],[.60,.425],[.92,.405]].forEach(function(p){
+      var px=p[0]*S, py=p[1]*S, h=S*.085, w=S*.028;
+      sx.beginPath();
+      sx.moveTo(px,py-h); sx.lineTo(px+w,py+S*.012); sx.lineTo(px-w,py+S*.012);
+      sx.closePath(); sx.fill();
+    });
+
+    /* склон */
+    sx.beginPath();
+    sx.moveTo(-S*.08,S*.30);
+    sx.quadraticCurveTo(S*.42,S*.66,S*1.08,S*.70);
+    sx.lineTo(S*1.1,S*1.1); sx.lineTo(-S*.1,S*1.1); sx.closePath();
+    var hg=sx.createLinearGradient(0,S*.3,0,S*.9);
+    hg.addColorStop(0,'#E9EBF9'); hg.addColorStop(1,'#B9BEE2');
+    sx.fillStyle=hg; sx.fill();
+
+    /* тюбинг */
+    if(!calm){
+      if(tubeWait>0){ tubeWait--; } else { tubeT+=.0052; if(tubeT>1.08){ tubeT=-.06; tubeWait=70; } }
+    }
+    var tt=Math.max(0,Math.min(1,tubeT));
+    if(tubeWait===0||calm){
+      var p=slope(tt), ang=Math.atan2(p.dy,p.dx);
+      sx.save();
+      sx.translate(p.x,p.y); sx.rotate(ang);
+      /* снежный шлейф */
+      for(var s2=0;s2<7;s2++){
+        sx.beginPath();
+        sx.arc(-S*.07-s2*S*.022, -S*.02+Math.sin(tick2*.3+s2)*S*.012, S*.011-s2*.0011*S, 0, 6.283);
+        sx.fillStyle='rgba(255,255,255,'+(.5-s2*.06)+')'; sx.fill();
+      }
+      /* седок */
+      sx.beginPath();
+      sx.moveTo(-S*.026,-S*.016);
+      sx.quadraticCurveTo(-S*.032,-S*.056,0,-S*.066);
+      sx.quadraticCurveTo(S*.032,-S*.056,S*.026,-S*.016);
+      sx.closePath();
+      sx.fillStyle='#A87BF0'; sx.fill();
+      sx.beginPath(); sx.arc(0,-S*.052,S*.014,0,6.283);
+      sx.fillStyle='#6FE0C8'; sx.fill();
+      /* сам тюбинг */
+      sx.beginPath(); sx.ellipse(0,-S*.014,S*.062,S*.028,0,0,6.283);
+      var tg=sx.createLinearGradient(-S*.06,0,S*.06,0);
+      tg.addColorStop(0,'#E28536'); tg.addColorStop(.5,'#F6AB5D'); tg.addColorStop(1,'#D9752A');
+      sx.fillStyle=tg; sx.fill();
+      sx.beginPath(); sx.ellipse(0,-S*.016,S*.024,S*.010,0,0,6.283);
+      sx.fillStyle='rgba(233,237,255,.92)'; sx.fill();
+      sx.restore();
+    }
+
+    /* передний сугроб */
+    sx.beginPath();
+    sx.moveTo(-S*.1,S*.80);
+    sx.quadraticCurveTo(S*.46,S*.715,S*1.1,S*.83);
+    sx.lineTo(S*1.1,S*1.15); sx.lineTo(-S*.1,S*1.15); sx.closePath();
+    sx.fillStyle='#F2F3FB'; sx.fill();
+
+    /* каток */
+    var cx2=S*.37, cy2=S*.865, rx2=S*.255, ry2=S*.062;
+    sx.beginPath(); sx.ellipse(cx2,cy2,rx2,ry2,0,0,6.283);
+    var pg=sx.createLinearGradient(0,cy2-ry2,0,cy2+ry2);
+    pg.addColorStop(0,'#93ACE0'); pg.addColorStop(1,'#6D87C8');
+    sx.fillStyle=pg; sx.fill();
+    sx.lineWidth=1.6; sx.strokeStyle='rgba(255,255,255,.7)'; sx.stroke();
+
+    /* фигурист и след от коньков */
+    if(!calm) skTh+=.026;
+    var den=1+Math.sin(skTh)*Math.sin(skTh),
+        kx=cx2+(rx2*.74)*Math.cos(skTh)/den,
+        ky=cy2+(ry2*.82)*Math.sin(skTh)*Math.cos(skTh)/den;
+    trail.push({x:kx,y:ky}); if(trail.length>110) trail.shift();
+    sx.lineWidth=1.5; sx.lineCap='round';
+    for(var i2=1;i2<trail.length;i2++){
+      sx.beginPath();
+      sx.moveTo(trail[i2-1].x,trail[i2-1].y); sx.lineTo(trail[i2].x,trail[i2].y);
+      sx.strokeStyle='rgba(255,255,255,'+(i2/trail.length*.85)+')'; sx.stroke();
+    }
+    sx.beginPath();
+    sx.moveTo(kx-S*.016,ky);
+    sx.quadraticCurveTo(kx-S*.020,ky-S*.036,kx,ky-S*.046);
+    sx.quadraticCurveTo(kx+S*.020,ky-S*.036,kx+S*.016,ky);
+    sx.closePath(); sx.fillStyle='#2E1F58'; sx.fill();
+    sx.beginPath(); sx.arc(kx,ky-S*.038,S*.011,0,6.283);
+    sx.fillStyle='#6FE0C8'; sx.fill();
+
+    /* ёлки на переднем плане */
+    sx.fillStyle='#1E1640';
+    [[.88,.90,.155],[.97,.97,.12]].forEach(function(p){
+      var px=p[0]*S, py=p[1]*S, h=p[2]*S, w=h*.34;
+      sx.beginPath(); sx.moveTo(px,py-h); sx.lineTo(px+w,py); sx.lineTo(px-w,py);
+      sx.closePath(); sx.fill();
+    });
+
+    /* снег */
+    for(var k2=0;k2<sflk.length;k2++){
+      var f2=sflk[k2];
+      if(!calm){ f2.s+=.02; f2.y+=f2.v; f2.x+=Math.sin(f2.s)*.4; if(f2.y>S+3){ f2.y=-3; f2.x=Math.random()*S; } }
+      sx.beginPath(); sx.arc(f2.x,f2.y,f2.r,0,6.283);
+      sx.fillStyle='rgba(235,238,255,'+f2.a+')'; sx.fill();
+    }
+  }
+
+  function sceneLoop(){ drawScene(); frostFill(.0035); sraf=requestAnimationFrame(sceneLoop); }
+  var sraf=null;
+  sceneSize();
+  window.addEventListener('resize',function(){ sceneSize(); if(calm) drawScene(); });
+  if(calm){ drawScene(); } else { sraf=requestAnimationFrame(sceneLoop); }
+
+  /* протирание стекла пальцем или мышкой */
+  var wiped=false;
+  function atGlass(e){
+    var r=glass.getBoundingClientRect();
+    wipe(e.clientX-r.left, e.clientY-r.top, S*.145);
+    if(!wiped){ wiped=true; hint.classList.add('gone'); }
+  }
+  glass.addEventListener('pointermove',atGlass);
+  glass.addEventListener('pointerdown',atGlass);
+
+  /* ---------- 4б. счётчики в цифрах ---------- */
+  if(!calm && 'IntersectionObserver' in window){
+    var sio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        sio.unobserve(e.target);
+        var goal=parseInt(e.target.textContent,10);
+        if(isNaN(goal)) return;
+        var n=0, iv=setInterval(function(){
+          n++; e.target.textContent=n;
+          if(n>=goal) clearInterval(iv);
+        },520/goal+55);
+      });
+    },{threshold:.6});
+    document.querySelectorAll('.stat b').forEach(function(el){ sio.observe(el); });
+  }
+
+  /* ---------- 5. появление секций ---------- */
+  var revs=[].slice.call(document.querySelectorAll('.rev'));
+  if('IntersectionObserver' in window && !calm){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    revs.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){ revs.forEach(function(el){ el.classList.add('in'); }); },2600);
+  } else {
+    revs.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- 6. наклон карточек ---------- */
+  if(!calm && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('[data-tilt]').forEach(function(card){
+      card.addEventListener('pointermove',function(e){
+        var r=card.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+        card.style.setProperty('--mx',(px*100)+'%');
+        card.style.setProperty('--my',(py*100)+'%');
+        card.style.transform='perspective(900px) rotateX('+((.5-py)*7).toFixed(2)+'deg) rotateY('+((px-.5)*7).toFixed(2)+'deg) translateY(-4px)';
+      });
+      card.addEventListener('pointerleave',function(){ card.style.transform=''; });
+    });
+  }
+
+  /* ---------- 7. магнитные кнопки ---------- */
+  if(!calm && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('[data-magnet]').forEach(function(b){
+      b.addEventListener('pointermove',function(e){
+        var r=b.getBoundingClientRect();
+        b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.16).toFixed(1)+'px,'+((e.clientY-r.top-r.height/2)*.28).toFixed(1)+'px)';
+      });
+      b.addEventListener('pointerleave',function(){ b.style.transform=''; });
+    });
+  }
+
+  /* ---------- 8. прогресс, шапка и тюбинг на сугробе ---------- */
+  var prog=document.getElementById('prog'), bar=document.getElementById('bar'), tick=false;
+  var dw=document.getElementById('driftwrap'), dpath=document.getElementById('driftPath'),
+      tube=document.getElementById('tube'), dlen=dpath.getTotalLength?dpath.getTotalLength():0;
+
+  function rideTube(){
+    if(!dlen) return;
+    var r=dw.getBoundingClientRect(), vh=window.innerHeight;
+    var p=(vh-r.top)/(vh+r.height);
+    p=Math.max(0,Math.min(1,p));
+    /* верхняя кромка сугроба — первая половина контура */
+    var a=dpath.getPointAtLength(dlen*(.045+p*.47)),
+        b=dpath.getPointAtLength(dlen*(.045+p*.47+.01));
+    var kx=r.width/1440, ky=r.height/90;
+    tube.style.left=(a.x*kx)+'px';
+    tube.style.top=(a.y*ky)+'px';
+    var ang=Math.atan2((b.y-a.y)*ky,(b.x-a.x)*kx)*180/Math.PI;
+    tube.style.transform='translate(-50%,-72%) rotate('+ang.toFixed(1)+'deg)';
+  }
+
+  function onScroll(){
+    var y=window.scrollY||0;
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(max>0?(y/max)*100:0)+'%';
+    bar.classList.toggle('tight',y>60);
+    rideTube();
+    tick=false;
+  }
+  window.addEventListener('resize',rideTube);
+  window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(onScroll); } },{passive:true});
+  onScroll();
+
+  /* ---------- 9. видео: играет, когда попадает в кадр ---------- */
+  var vid=document.getElementById('reel'),
+      snd=document.getElementById('snd'),
+      sndIcon=document.getElementById('sndIcon'),
+      big=document.getElementById('bigplay'),
+      touched=false;
+
+  var ON='<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',
+      OFF='<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/>';
+
+  function start(){
+    vid.preload='auto';
+    var p=vid.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+  function markPlaying(){ big.hidden=true; }
+
+  vid.addEventListener('playing',markPlaying);
+
+  big.addEventListener('click',function(){
+    touched=true;
+    vid.muted=false; sndIcon.innerHTML=ON; snd.setAttribute('aria-label','Выключить звук');
+    start(); markPlaying();
+  });
+
+  snd.addEventListener('click',function(e){
+    e.stopPropagation();
+    vid.muted=!vid.muted;
+    sndIcon.innerHTML=vid.muted?OFF:ON;
+    snd.setAttribute('aria-label',vid.muted?'Включить звук':'Выключить звук');
+    if(vid.paused){ touched=true; start(); markPlaying(); }
+  });
+
+  if('IntersectionObserver' in window){
+    var vio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          if(!calm && !touched) start();
+        } else if(!vid.paused && vid.muted){
+          vid.pause();
+        }
+      });
+    },{threshold:.45});
+    vio.observe(vid);
+  }
+
+  /* ---------- 9б. наклон телефона качает сияние и снег ---------- */
+  if(!calm && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission!=='function'){
+    var auroras=[].slice.call(document.querySelectorAll('.aurora')), traf=null, gx=0, gy=0;
+    var applyTilt=function(){
+      traf=null;
+      auroras.forEach(function(a,i){
+        var k=(i+1)*10;
+        a.style.translate=(gx*k).toFixed(1)+'px '+(gy*k*.5).toFixed(1)+'px';
+      });
+      tiltWind=gx*.9;
+    };
+    window.addEventListener('deviceorientation',function(e){
+      if(e.gamma===null&&e.beta===null) return;
+      gx=Math.max(-1,Math.min(1,(e.gamma||0)/38));
+      gy=Math.max(-1,Math.min(1,((e.beta||40)-40)/38));
+      if(!traf) traf=requestAnimationFrame(applyTilt);
+    });
+  }
+
+  /* ---------- 10. плавная прокрутка по якорям ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(a.getAttribute('href'));
+      if(!t) return;
+      e.preventDefault();
+      t.scrollIntoView({behavior:calm?'auto':'smooth',block:'start'});
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
