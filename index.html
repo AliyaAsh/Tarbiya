@@ -206,14 +206,24 @@ a{color:inherit}
 .porthole{position:relative;width:min(400px,92%);aspect-ratio:1}
 .glass{
   position:absolute;inset:8%;border-radius:50%;overflow:hidden;
-  background:#1B1338;cursor:crosshair;touch-action:pan-y;
+  background:#1B1338;cursor:pointer;touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
   box-shadow:
     0 30px 70px -30px rgba(0,0,0,.95),
     inset 0 0 0 1px rgba(226,230,255,.22),
     inset 0 0 44px rgba(120,100,200,.3);
+  transition:box-shadow .3s ease;
 }
+.glass:active{box-shadow:0 30px 70px -30px rgba(0,0,0,.95),inset 0 0 0 1px rgba(246,171,93,.5),inset 0 0 44px rgba(120,100,200,.3)}
 .glass canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.glass #frost{pointer-events:none}
+.glass.wob{animation:wob .7s cubic-bezier(.3,.7,.4,1)}
+@keyframes wob{
+  0%{transform:translate3d(0,0,0) rotate(0)}
+  18%{transform:translate3d(-5px,2px,0) rotate(-1.4deg)}
+  42%{transform:translate3d(4px,-2px,0) rotate(1.1deg)}
+  68%{transform:translate3d(-2px,1px,0) rotate(-.5deg)}
+  100%{transform:translate3d(0,0,0) rotate(0)}
+}
 .hint{
   position:absolute;left:50%;bottom:-28px;transform:translateX(-50%);
   font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
@@ -223,7 +233,11 @@ a{color:inherit}
 .hint.gone{opacity:0}
 .hint .touch{display:none}
 @media (hover:none){.hint .mouse{display:none}.hint .touch{display:inline}}
-.ringtxt{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:spin 52s linear infinite}
+/* pointer-events:none обязателен: иначе svg перехватывает касания по шару */
+.ringtxt{
+  position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  pointer-events:none;animation:spin 52s linear infinite;
+}
 .ringtxt text{
   font-family:var(--f-body);font-size:8.4px;font-weight:600;
   letter-spacing:3.1px;fill:var(--frost);opacity:.6;text-transform:uppercase;
@@ -296,17 +310,6 @@ section{position:relative}
 .drift{display:block;width:100%;height:clamp(40px,6vw,84px);fill:var(--snow)}
 .drift.top{margin-bottom:-1px}
 .drift.bot{transform:rotate(180deg);margin-top:-1px}
-.driftwrap{position:relative}
-.tube{
-  position:absolute;left:0;top:0;width:clamp(42px,4.4vw,62px);
-  transform:translate(-50%,-72%);pointer-events:none;
-  filter:drop-shadow(0 6px 10px rgba(18,14,36,.45));
-}
-.tube svg{display:block;width:100%;height:auto;overflow:visible}
-.tube .ring-o{fill:#F0A055}
-.tube .ring-i{fill:#E6EAFB}
-.tube .rider{fill:#A87BF0}
-.tube .face{fill:#6FE0C8}
 .snowband .eyebrow{color:var(--amber-2)}
 .snowband .eyebrow::before{background:var(--amber-2)}
 .snowband h2{color:var(--ink)}
@@ -463,12 +466,13 @@ section{position:relative}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media (max-width:760px){.doors{grid-template-columns:1fr}}
 .door{
-  position:relative;display:block;text-decoration:none;overflow:hidden;
-  padding:36px 32px 34px;border-radius:var(--r-xl);
+  position:relative;overflow:hidden;
+  padding:34px 30px 30px;border-radius:var(--r-xl);
   border:1px solid var(--line-2);background:linear-gradient(165deg,var(--surface-2),var(--night-2) 72%);
   transition:transform .45s cubic-bezier(.2,.8,.3,1),border-color .35s,box-shadow .45s;
 }
-.door:hover{transform:translateY(-6px);border-color:var(--amber);box-shadow:0 40px 80px -44px rgba(246,171,93,.75)}
+.door:hover{transform:translateY(-6px);border-color:var(--amber);box-shadow:0 40px 80px -44px rgba(246,171,93,.7)}
+.door.f:hover{border-color:var(--mint);box-shadow:0 40px 80px -44px rgba(95,216,192,.6)}
 .door::after{
   content:"";position:absolute;width:300px;height:300px;right:-110px;top:-130px;border-radius:50%;
   background:radial-gradient(circle,rgba(246,171,93,.22),transparent 68%);transition:transform .6s ease;
@@ -476,18 +480,23 @@ section{position:relative}
 .door:hover::after{transform:scale(1.5)}
 .door.f::after{background:radial-gradient(circle,rgba(95,216,192,.22),transparent 68%)}
 .door small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.door h3{margin-top:14px;font-size:clamp(23px,3vw,30px);color:#fff}
-.door .tg{
-  display:flex;width:fit-content;align-items:center;gap:11px;margin-top:22px;
-  font-family:var(--f-display);font-size:clamp(16px,2.2vw,21px);font-weight:600;color:var(--amber);
-  word-break:break-all;
+.door h3{margin-top:13px;font-size:clamp(22px,2.8vw,28px);color:#fff}
+
+.doorlinks{display:flex;flex-direction:column;gap:10px;margin-top:22px;position:relative;z-index:1}
+.dl{
+  display:flex;align-items:center;gap:12px;text-decoration:none;
+  padding:14px 17px;border-radius:15px;
+  border:1px solid var(--line);background:rgba(198,202,240,.05);
+  font-family:var(--f-display);font-weight:600;
+  font-size:clamp(14px,1.6vw,17px);color:#fff;
+  transition:background .25s,border-color .25s,transform .25s;
+  overflow-wrap:anywhere;
 }
-.door.f .tg{color:var(--mint)}
-.door .go{
-  margin-top:24px;display:flex;width:fit-content;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#fff;opacity:.85;
-}
-.door .go svg{transition:transform .3s ease}
-.door:hover .go svg{transform:translateX(6px)}
+.dl:hover{background:rgba(198,202,240,.12);border-color:var(--line-2);transform:translateX(4px)}
+.dl svg{flex:none}
+.dl-tg{color:var(--amber)}
+.door.f .dl-tg{color:var(--mint)}
+.dl-tel{font-variant-numeric:tabular-nums;white-space:nowrap}
 
 .channel{
   margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
@@ -573,9 +582,8 @@ html.js .rev.d3{transition-delay:.24s}
 
     <div class="scene-box">
       <div class="porthole">
-        <div class="glass" id="glass">
+        <div class="glass" id="glass" role="button" tabindex="0" aria-label="Встряхнуть снежный шар">
           <canvas id="scene"></canvas>
-          <canvas id="frost"></canvas>
         </div>
         <svg class="ringtxt" viewBox="0 0 200 200" aria-hidden="true">
           <defs>
@@ -584,8 +592,8 @@ html.js .rev.d3{transition-delay:.24s}
           <text><textPath href="#ringpath" startOffset="0" textLength="568" lengthAdjust="spacing">6 дней · зимние каникулы · Тарбия · Воткинск ·</textPath></text>
         </svg>
         <span class="hint" id="hint">
-          <span class="mouse">Проведи мышкой по стеклу</span>
-          <span class="touch">Протри стекло пальцем</span>
+          <span class="mouse">Нажми на шар со снегом</span>
+          <span class="touch">Нажми на шар или потряси телефон</span>
         </span>
       </div>
     </div>
@@ -602,8 +610,8 @@ html.js .rev.d3{transition-delay:.24s}
 <!-- ================= ЛЕНТА ================= -->
 <div class="ribbon" aria-hidden="true">
   <div class="track" id="track">
-    <span>Коран</span><span>Тюбинги</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
-    <span>Коран</span><span>Тюбинги</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
+    <span>Коран</span><span>Прогулки</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
+    <span>Коран</span><span>Прогулки</span><span>Лекции</span><span>Каток</span><span>Новые сёстры</span><span>Кружки</span><span>Дружба</span><span>Квесты</span><span>Горячий чай</span>
   </div>
 </div>
 
@@ -621,21 +629,21 @@ html.js .rev.d3{transition-delay:.24s}
         <span class="no">01</span>
         <svg class="ic" viewBox="0 0 48 48" stroke="#F6AB5D" aria-hidden="true"><path d="M24 14v26"/><path d="M24 14c-4-4-10-5-16-4v26c6-1 12 0 16 4 4-4 10-5 16-4V10c-6-1-12 0-16 4Z"/><path d="M14 20h4M14 27h4M30 20h4M30 27h4"/></svg>
         <h3>Коран</h3>
-        <p>Чтение, таджвид и заучивание коротких сур — маленькими шагами, каждая в своём темпе и на своём уровне.</p>
+        <p>Чтение, таджвид и заучивание сур — маленькими шагами, каждая в своём темпе и на своём уровне.</p>
       </article>
 
       <article class="pil rev d1" data-tilt>
         <span class="no">02</span>
         <svg class="ic" viewBox="0 0 48 48" stroke="#5FD8C0" aria-hidden="true"><path d="M10 38h28"/><path d="M14 38V22l10-8 10 8v16"/><path d="M24 38v-9"/><circle cx="24" cy="9" r="3"/></svg>
         <h3>Лекции</h3>
-        <p>Разговор о вере, о нраве и о том, как остаться собой в школе и в интернете. Живо, с вопросами и примерами из жизни.</p>
+        <p>Разговор о вере, о нраве и о том, как остаться собой в школе и в интернете.</p>
       </article>
 
       <article class="pil rev d2" data-tilt>
         <span class="no">03</span>
         <svg class="ic" viewBox="0 0 48 48" stroke="#A87BF0" aria-hidden="true"><circle cx="24" cy="24" r="13"/><path d="M24 11v26M11 24h26M15 15l18 18M33 15 15 33"/></svg>
         <h3>Весёлые игры</h3>
-        <p>Тюбинги с горы, каток, квесты, снежные крепости и командные состязания — чтобы шесть дней пролетели за один вдох.</p>
+        <p>Каток, квесты, снежные крепости, прогулки и командные состязания — чтобы шесть дней пролетели за один вдох.</p>
       </article>
 
       <article class="pil rev" data-tilt>
@@ -656,17 +664,7 @@ html.js .rev.d3{transition-delay:.24s}
 </section>
 
 <!-- ================= РОДИТЕЛЯМ ================= -->
-<div class="driftwrap" id="driftwrap">
-  <svg class="drift top" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path id="driftPath" d="M0,90 L0,50 C120,20 240,68 360,54 C480,40 560,8 700,16 C840,24 900,64 1040,60 C1180,56 1300,26 1440,42 L1440,90 Z"/></svg>
-  <div class="tube" id="tube" aria-hidden="true">
-    <svg viewBox="0 0 64 50">
-      <path class="rider" d="M32 30c-7 0-8-6-8-10 0-5 3-9 8-9s8 4 8 9c0 4-1 10-8 10z"/>
-      <circle class="face" cx="32" cy="17" r="4.4"/>
-      <ellipse class="ring-o" cx="32" cy="34" rx="25" ry="12"/>
-      <ellipse class="ring-i" cx="32" cy="33" rx="9.5" ry="4.4"/>
-    </svg>
-  </div>
-</div>
+<svg class="drift top" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,90 L0,50 C120,20 240,68 360,54 C480,40 560,8 700,16 C840,24 900,64 1040,60 C1180,56 1300,26 1440,42 L1440,90 Z"/></svg>
 
 <section class="snowband" id="dni">
   <div class="wrap" style="padding-block:clamp(20px,3vw,40px) clamp(64px,8vw,104px)">
@@ -686,7 +684,7 @@ html.js .rev.d3{transition-delay:.24s}
       <article class="day rev d1">
         <div class="dnum"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c6 0 11 3 11 3l-3 9-3-1v19H19V19l-3 1-3-9s5-3 11-3z"/></svg></div>
         <h3>На улицу</h3>
-        <ul><li>Тёплый комбинезон для тюбингов</li><li>Две пары варежек — одни всегда мокрые</li><li>Шапка, шарф, тёплые сапоги</li></ul>
+        <ul><li>Зимняя одежда</li><li>Две пары варежек — одни всегда мокрые</li><li>Шапка, шарф, тёплые сапоги</li></ul>
       </article>
 
       <article class="day rev d2">
@@ -802,33 +800,39 @@ html.js .rev.d3{transition-delay:.24s}
     <div class="head rev">
       <span class="eyebrow">Запись на зимнюю смену</span>
       <h2>Места ограничены — напишите заранее</h2>
-      <p>Напишите в Telegram: подскажут даты заезда, стоимость, что взять с собой и как устроено проживание. Мужчины пишут хазрату, женщины — умм Самире.</p>
+      <p>Напишите в Telegram или позвоните: подскажут даты заезда, стоимость, что взять с собой и как устроено проживание. Мужчины обращаются к хазрату, женщины — к умм Самире.</p>
     </div>
 
     <div class="doors">
-      <a class="door rev" href="https://t.me/Muhammednurash" target="_blank" rel="noopener">
+      <div class="door rev">
         <small>Для мужчин</small>
         <h3>Мыхамматнур хазрат</h3>
-        <span class="tg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
-          @Muhammednurash
-        </span>
-        <span class="go">Написать в Telegram
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-        </span>
-      </a>
+        <div class="doorlinks">
+          <a class="dl dl-tg" href="https://t.me/Muhammednurash" target="_blank" rel="noopener">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
+            @Muhammednurash
+          </a>
+          <a class="dl dl-tel" href="tel:+79127628649">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h3.2l1.6 4-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4 1.6v3.2a2 2 0 0 1-2.2 2 16.5 16.5 0 0 1-14.6-14.6A2 2 0 0 1 6.6 3Z"/></svg>
+            +7 912 762-86-49
+          </a>
+        </div>
+      </div>
 
-      <a class="door f rev d1" href="https://t.me/ummsamira_tarbiya" target="_blank" rel="noopener">
+      <div class="door f rev d1">
         <small>Для женщин</small>
         <h3>Умм Самира</h3>
-        <span class="tg">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
-          @ummsamira_tarbiya
-        </span>
-        <span class="go">Написать в Telegram
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-        </span>
-      </a>
+        <div class="doorlinks">
+          <a class="dl dl-tg" href="https://t.me/ummsamira_tarbiya" target="_blank" rel="noopener">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 3.3 2.9 10.6c-1 .4-1 1.3 0 1.6l4.7 1.5 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.5c.3-1.2-.5-1.8-1.4-1.4Z"/></svg>
+            @ummsamira_tarbiya
+          </a>
+          <a class="dl dl-tel" href="tel:+79127427586">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 3h3.2l1.6 4-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4 1.6v3.2a2 2 0 0 1-2.2 2 16.5 16.5 0 0 1-14.6-14.6A2 2 0 0 1 6.6 3Z"/></svg>
+            +7 912 742-75-86
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class="channel rev d2">
@@ -945,66 +949,30 @@ html.js .rev.d3{transition-delay:.24s}
   /* ---------- 4. зимняя сцена за замёрзшим стеклом ---------- */
   var glass=document.getElementById('glass'),
       sc=document.getElementById('scene'), sx=sc.getContext('2d'),
-      fr=document.getElementById('frost'), fx=fr.getContext('2d'),
       hint=document.getElementById('hint');
-  var S=0, stars=[], sflk=[], trail=[], tubeT=-.06, tubeWait=0, skTh=0, tick2=0;
-
-  function slope(t){
-    var p0x=-.08*S,p0y=.30*S,p1x=.42*S,p1y=.66*S,p2x=1.08*S,p2y=.70*S,mt=1-t;
-    return {
-      x:mt*mt*p0x+2*mt*t*p1x+t*t*p2x,
-      y:mt*mt*p0y+2*mt*t*p1y+t*t*p2y,
-      dx:2*mt*(p1x-p0x)+2*t*(p2x-p1x),
-      dy:2*mt*(p1y-p0y)+2*t*(p2y-p1y)
-    };
-  }
+  var S=0, stars=[], sflk=[], trail=[], skTh=0, tick2=0;
 
   function sceneSize(){
     var r=glass.getBoundingClientRect();
     S=r.width||320;
     var dpr=Math.min(window.devicePixelRatio||1,2);
-    [sc,fr].forEach(function(c){ c.width=S*dpr; c.height=S*dpr; });
-    sx.setTransform(dpr,0,0,dpr,0,0); fx.setTransform(dpr,0,0,dpr,0,0);
+    sc.width=S*dpr; sc.height=S*dpr;
+    sx.setTransform(dpr,0,0,dpr,0,0);
     stars=[]; for(var i=0;i<26;i++) stars.push({x:Math.random()*S,y:Math.random()*S*.42,r:Math.random()*1.1+.4,p:Math.random()*6.283});
-    sflk=[]; for(var j=0;j<70;j++){ var d=Math.random(); sflk.push({x:Math.random()*S,y:Math.random()*S,r:.6+d*2,v:.16+d*.6,a:.25+d*.5,s:Math.random()*6.283}); }
+    sflk=[]; for(var j=0;j<78;j++){ var d=Math.random(); sflk.push({x:Math.random()*S,y:Math.random()*S,r:.6+d*2,v:.16+d*.6,a:.25+d*.5,s:Math.random()*6.283,bx:0,by:0}); }
     trail=[];
-    resetFrost();
   }
 
-  function frostFill(a){
-    /* к центру стекло почти чистое — сцену видно всегда, иней живёт по краям */
-    var g=fx.createRadialGradient(S*.5,S*.46,S*.06,S*.5,S*.5,S*.58);
-    g.addColorStop(0,'rgba(238,242,255,'+(.06*a)+')');
-    g.addColorStop(.42,'rgba(228,234,255,'+(.34*a)+')');
-    g.addColorStop(.75,'rgba(214,223,252,'+(.72*a)+')');
-    g.addColorStop(1,'rgba(198,210,247,'+(.94*a)+')');
-    fx.globalCompositeOperation='source-over';
-    fx.fillStyle=g; fx.fillRect(0,0,S,S);
-  }
-  function wipe(x,y,rad){
-    fx.globalCompositeOperation='destination-out';
-    var g=fx.createRadialGradient(x,y,0,x,y,rad);
-    g.addColorStop(0,'rgba(0,0,0,.55)'); g.addColorStop(.6,'rgba(0,0,0,.28)'); g.addColorStop(1,'rgba(0,0,0,0)');
-    fx.fillStyle=g; fx.beginPath(); fx.arc(x,y,rad,0,6.283); fx.fill();
-    fx.globalCompositeOperation='source-over';
-  }
-  function resetFrost(){
-    fx.clearRect(0,0,S,S);
-    frostFill(1);
-    /* кристаллы на стекле */
-    fx.globalCompositeOperation='source-over';
-    for(var i=0;i<150;i++){
-      var a=Math.random()*6.283, d=(.42+Math.sqrt(Math.random())*.58)*S*.5;
-      fx.beginPath();
-      fx.arc(S*.5+Math.cos(a)*d,S*.5+Math.sin(a)*d,Math.random()*1.8+.3,0,6.283);
-      fx.fillStyle='rgba(255,255,255,'+(Math.random()*.45+.14)+')'; fx.fill();
+  /* встряхивание шара: снег взлетает и оседает */
+  function shakeGlobe(){
+    for(var i=0;i<sflk.length;i++){
+      sflk[i].bx=(Math.random()-.5)*7;
+      sflk[i].by=-(Math.random()*4.2+1.2);
     }
-    /* центр протёрт заранее: сцена читается сразу, без взаимодействия */
-    wipe(S*.5,S*.5,S*.36);
-    for(var k=0;k<7;k++){
-      var ang=k/7*6.283;
-      wipe(S*.5+Math.cos(ang)*S*.18, S*.52+Math.sin(ang)*S*.17, S*.2);
-    }
+    glass.classList.remove('wob');
+    void glass.offsetWidth;
+    glass.classList.add('wob');
+    hint.classList.add('gone');
   }
 
   function drawScene(){
@@ -1036,12 +1004,47 @@ html.js .rev.d3{transition-delay:.24s}
 
     /* ёлки на гребне */
     sx.fillStyle='#241A46';
-    [[.10,.44],[.17,.41],[.26,.365],[.34,.35],[.52,.40],[.60,.425],[.92,.405]].forEach(function(p){
+    [[.10,.44],[.17,.41],[.26,.365],[.34,.35],[.46,.385],[.92,.405]].forEach(function(p){
       var px=p[0]*S, py=p[1]*S, h=S*.085, w=S*.028;
       sx.beginPath();
       sx.moveTo(px,py-h); sx.lineTo(px+w,py+S*.012); sx.lineTo(px-w,py+S*.012);
       sx.closePath(); sx.fill();
     });
+
+    /* мечеть на гребне */
+    var mx=S*.655, my=S*.432, m=S*.125;
+    sx.fillStyle='#1E1540';
+    /* минарет */
+    sx.beginPath();
+    sx.moveTo(mx+m*.56,my);
+    sx.lineTo(mx+m*.56,my-m*.74);
+    sx.lineTo(mx+m*.68,my-m*1.04);
+    sx.lineTo(mx+m*.80,my-m*.74);
+    sx.lineTo(mx+m*.80,my);
+    sx.closePath(); sx.fill();
+    /* основной объём */
+    sx.beginPath();
+    sx.moveTo(mx-m*.5,my);
+    sx.lineTo(mx-m*.5,my-m*.44);
+    sx.lineTo(mx+m*.5,my-m*.44);
+    sx.lineTo(mx+m*.5,my);
+    sx.closePath(); sx.fill();
+    /* купол */
+    sx.beginPath();
+    sx.moveTo(mx-m*.34,my-m*.44);
+    sx.quadraticCurveTo(mx,my-m*1.02,mx+m*.34,my-m*.44);
+    sx.closePath(); sx.fill();
+    /* шпиль */
+    sx.fillRect(mx-m*.018,my-m*1.14,m*.036,m*.16);
+    /* тёплые окна */
+    var lit=.62+Math.sin(tick2*.035)*.22;
+    sx.fillStyle='rgba(246,171,93,'+lit.toFixed(3)+')';
+    for(var w2=-1;w2<=1;w2++){
+      sx.beginPath();
+      sx.ellipse(mx+w2*m*.27,my-m*.19,m*.055,m*.105,0,0,6.283);
+      sx.fill();
+    }
+    sx.fillRect(mx+m*.635,my-m*.60,m*.09,m*.13);
 
     /* склон */
     sx.beginPath();
@@ -1051,40 +1054,6 @@ html.js .rev.d3{transition-delay:.24s}
     var hg=sx.createLinearGradient(0,S*.3,0,S*.9);
     hg.addColorStop(0,'#E9EBF9'); hg.addColorStop(1,'#B9BEE2');
     sx.fillStyle=hg; sx.fill();
-
-    /* тюбинг */
-    if(!calm){
-      if(tubeWait>0){ tubeWait--; } else { tubeT+=.0052; if(tubeT>1.08){ tubeT=-.06; tubeWait=70; } }
-    }
-    var tt=Math.max(0,Math.min(1,tubeT));
-    if(tubeWait===0||calm){
-      var p=slope(tt), ang=Math.atan2(p.dy,p.dx);
-      sx.save();
-      sx.translate(p.x,p.y); sx.rotate(ang);
-      /* снежный шлейф */
-      for(var s2=0;s2<7;s2++){
-        sx.beginPath();
-        sx.arc(-S*.07-s2*S*.022, -S*.02+Math.sin(tick2*.3+s2)*S*.012, S*.011-s2*.0011*S, 0, 6.283);
-        sx.fillStyle='rgba(255,255,255,'+(.5-s2*.06)+')'; sx.fill();
-      }
-      /* седок */
-      sx.beginPath();
-      sx.moveTo(-S*.026,-S*.016);
-      sx.quadraticCurveTo(-S*.032,-S*.056,0,-S*.066);
-      sx.quadraticCurveTo(S*.032,-S*.056,S*.026,-S*.016);
-      sx.closePath();
-      sx.fillStyle='#A87BF0'; sx.fill();
-      sx.beginPath(); sx.arc(0,-S*.052,S*.014,0,6.283);
-      sx.fillStyle='#6FE0C8'; sx.fill();
-      /* сам тюбинг */
-      sx.beginPath(); sx.ellipse(0,-S*.014,S*.062,S*.028,0,0,6.283);
-      var tg=sx.createLinearGradient(-S*.06,0,S*.06,0);
-      tg.addColorStop(0,'#E28536'); tg.addColorStop(.5,'#F6AB5D'); tg.addColorStop(1,'#D9752A');
-      sx.fillStyle=tg; sx.fill();
-      sx.beginPath(); sx.ellipse(0,-S*.016,S*.024,S*.010,0,0,6.283);
-      sx.fillStyle='rgba(233,237,255,.92)'; sx.fill();
-      sx.restore();
-    }
 
     /* передний сугроб */
     sx.beginPath();
@@ -1129,30 +1098,48 @@ html.js .rev.d3{transition-delay:.24s}
       sx.closePath(); sx.fill();
     });
 
-    /* снег */
+    /* снег — с учётом встряхивания */
     for(var k2=0;k2<sflk.length;k2++){
       var f2=sflk[k2];
-      if(!calm){ f2.s+=.02; f2.y+=f2.v; f2.x+=Math.sin(f2.s)*.4; if(f2.y>S+3){ f2.y=-3; f2.x=Math.random()*S; } }
+      if(!calm){
+        f2.s+=.02;
+        f2.x+=Math.sin(f2.s)*.4+f2.bx;
+        f2.y+=f2.v+f2.by;
+        f2.bx*=.955; f2.by*=.955;
+        if(f2.y>S+3){ f2.y=-3; f2.x=Math.random()*S; f2.bx=0; f2.by=0; }
+        else if(f2.y<-6){ f2.y=-6; f2.by=Math.abs(f2.by)*.3; }
+        if(f2.x<-6) f2.x=S+6; else if(f2.x>S+6) f2.x=-6;
+      }
       sx.beginPath(); sx.arc(f2.x,f2.y,f2.r,0,6.283);
       sx.fillStyle='rgba(235,238,255,'+f2.a+')'; sx.fill();
     }
   }
 
-  function sceneLoop(){ drawScene(); frostFill(.0035); sraf=requestAnimationFrame(sceneLoop); }
+  function sceneLoop(){ drawScene(); sraf=requestAnimationFrame(sceneLoop); }
   var sraf=null;
   sceneSize();
   window.addEventListener('resize',function(){ sceneSize(); if(calm) drawScene(); });
   if(calm){ drawScene(); } else { sraf=requestAnimationFrame(sceneLoop); }
 
-  /* протирание стекла пальцем или мышкой */
-  var wiped=false;
-  function atGlass(e){
-    var r=glass.getBoundingClientRect();
-    wipe(e.clientX-r.left, e.clientY-r.top, S*.145);
-    if(!wiped){ wiped=true; hint.classList.add('gone'); }
+  /* встряхнуть: нажатие, клавиша или тряска телефона */
+  if(!calm){
+    /* pointerdown, а не click: срабатывает сразу и на мыши, и на касании */
+    glass.addEventListener('pointerdown',shakeGlobe);
+    glass.addEventListener('keydown',function(e){
+      if(e.key===' '||e.key==='Enter'){ e.preventDefault(); shakeGlobe(); }
+    });
+    if(window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission!=='function'){
+      var lastShake=0;
+      window.addEventListener('devicemotion',function(e){
+        var a=e.accelerationIncludingGravity;
+        if(!a) return;
+        var mag=Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0), now=Date.now();
+        if(mag>30 && now-lastShake>1000){ lastShake=now; shakeGlobe(); }
+      });
+    }
+  } else {
+    hint.classList.add('gone');
   }
-  glass.addEventListener('pointermove',atGlass);
-  glass.addEventListener('pointerdown',atGlass);
 
   /* ---------- 4б. счётчики в цифрах ---------- */
   if(!calm && 'IntersectionObserver' in window){
@@ -1208,35 +1195,15 @@ html.js .rev.d3{transition-delay:.24s}
     });
   }
 
-  /* ---------- 8. прогресс, шапка и тюбинг на сугробе ---------- */
+  /* ---------- 8. прогресс и шапка ---------- */
   var prog=document.getElementById('prog'), bar=document.getElementById('bar'), tick=false;
-  var dw=document.getElementById('driftwrap'), dpath=document.getElementById('driftPath'),
-      tube=document.getElementById('tube'), dlen=dpath.getTotalLength?dpath.getTotalLength():0;
-
-  function rideTube(){
-    if(!dlen) return;
-    var r=dw.getBoundingClientRect(), vh=window.innerHeight;
-    var p=(vh-r.top)/(vh+r.height);
-    p=Math.max(0,Math.min(1,p));
-    /* верхняя кромка сугроба — первая половина контура */
-    var a=dpath.getPointAtLength(dlen*(.045+p*.47)),
-        b=dpath.getPointAtLength(dlen*(.045+p*.47+.01));
-    var kx=r.width/1440, ky=r.height/90;
-    tube.style.left=(a.x*kx)+'px';
-    tube.style.top=(a.y*ky)+'px';
-    var ang=Math.atan2((b.y-a.y)*ky,(b.x-a.x)*kx)*180/Math.PI;
-    tube.style.transform='translate(-50%,-72%) rotate('+ang.toFixed(1)+'deg)';
-  }
-
   function onScroll(){
     var y=window.scrollY||0;
     var max=document.documentElement.scrollHeight-window.innerHeight;
     prog.style.width=(max>0?(y/max)*100:0)+'%';
     bar.classList.toggle('tight',y>60);
-    rideTube();
     tick=false;
   }
-  window.addEventListener('resize',rideTube);
   window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(onScroll); } },{passive:true});
   onScroll();
 
